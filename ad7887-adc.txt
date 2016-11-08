@@ -1,0 +1,27 @@
+Analog Devices, Inc. AD7887 ADC chip
+~~~~~~~~~~
+
+Required properties :
+ - compatible : "adi,ad7887"
+ - reg : chipselect spi
+
+Recommended properties:
+ - spi-max-frequency: Definition as per
+		Documentation/devicetree/bindings/spi/spi-bus.txt
+
+Optional properties :
+ - en_dual: Use dual channel mode. 
+   If present, AIN1 becomes the second input channel, and Vref is internally connected to Vdd.
+   Else the device is used in single channel mode and AIN1/Vref is used as VREF input.
+ - use_onchip_ref: Use the onchip reference. (in single channel mode only)
+   If present, the internal 2.5V reference is used. 
+   Else a external reference is used.
+ - extref-supply: Only if external reference is used
+
+	adc@0 {
+		compatible = "adi,ad7887";
+		reg = < 0 >;
+		spi-max-frequency = <1000000>;
+		extref-supply = <&reg_5VPS>;
+		#io-channel-cells = <1>;
+	};
